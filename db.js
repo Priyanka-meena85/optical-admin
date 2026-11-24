@@ -1,8 +1,25 @@
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
+const fs = require('fs');
 const bcrypt = require('bcryptjs');
 
-const DB_PATH = path.join(__dirname, 'sharma_optical.db');
+let DB_PATH = path.join(__dirname, 'sharma_optical.db');
+
+// Vercel Serverless environment: /var/task is read-only, copy db to writable /tmp
+if (process.env.VERCEL) {
+  const tmpPath = path.join('/tmp', 'optical_hub.db');
+  try {
+    if (!fs.existsSync(tmpPath)) {
+      if (fs.existsSync(DB_PATH)) {
+        fs.copyFileSync(DB_PATH, tmpPath);
+      }
+    }
+    DB_PATH = tmpPath;
+  } catch (err) {
+    console.warn('[Vercel] Warning copying SQLite to /tmp:', err.message);
+  }
+}
+
 const db = new sqlite3.Database(DB_PATH);
 
 // Helper for promise-based queries

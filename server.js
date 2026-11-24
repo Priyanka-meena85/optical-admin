@@ -748,12 +748,17 @@ app.get('/admin', (req, res) => {
   res.sendFile(path.join(__dirname, 'admin.html'));
 });
 
-// Initialize DB and launch server
-initDB().then(() => {
-  app.listen(PORT, () => {
-    console.log(`[The Optical Hub] Secure Full-Stack Server active on port ${PORT}`);
-    console.log(`[Security] 20-Point Security Checklist Enforced: Parameterized SQLite, CSP, Rate-Limits, HttpOnly Cookies, MFA, RBAC.`);
+// Export app for Vercel serverless functions
+module.exports = app;
+
+// If running standalone locally (not under Vercel serverless)
+if (!process.env.VERCEL) {
+  initDB().then(() => {
+    app.listen(PORT, () => {
+      console.log(`[The Optical Hub] Secure Full-Stack Server active on port ${PORT}`);
+      console.log(`[Security] 20-Point Security Checklist Enforced: Parameterized SQLite, CSP, Rate-Limits, HttpOnly Cookies, MFA, RBAC.`);
+    });
+  }).catch(err => {
+    console.error('Database initialization failed:', err);
   });
-}).catch(err => {
-  console.error('Database initialization failed:', err);
-});
+}
