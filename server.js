@@ -748,6 +748,10 @@ app.get('/admin', (req, res) => {
   res.sendFile(path.join(__dirname, 'admin.html'));
 });
 
+app.get('/favicon.ico', (req, res) => {
+  res.status(204).end();
+});
+
 // Export app for Vercel serverless functions
 module.exports = app;
 

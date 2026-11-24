@@ -1,8 +1,5 @@
 {
-  "framework": null,
-  "buildCommand": null,
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api" },
     { "source": "/admin", "destination": "/admin.html" }
   ]
 }
