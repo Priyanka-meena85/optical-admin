@@ -133,7 +133,7 @@ app.post('/api/auth/login', authLimiter, async (req, res) => {
       { expiresIn: JWT_EXPIRES_IN }
     );
 
-    res.cookie('sharma_session', token, {
+    res.cookie('optical_hub_session', token, {
       httpOnly: true,
       secure: false, // set true in production HTTPS
       sameSite: 'strict',
@@ -189,7 +189,7 @@ app.post('/api/auth/verify-mfa', async (req, res) => {
       { expiresIn: JWT_EXPIRES_IN }
     );
 
-    res.cookie('sharma_session', token, {
+    res.cookie('optical_hub_session', token, {
       httpOnly: true,
       secure: false,
       sameSite: 'strict',
@@ -217,20 +217,20 @@ app.post('/api/auth/verify-mfa', async (req, res) => {
 
 // POST /api/auth/logout
 app.post('/api/auth/logout', (req, res) => {
-  res.clearCookie('sharma_session', { path: '/' });
+  res.clearCookie('optical_hub_session', { path: '/' });
   res.json({ success: true, message: 'Logged out successfully.' });
 });
 
 // GET /api/auth/me (Check active session)
 app.get('/api/auth/me', (req, res) => {
-  const token = req.cookies.sharma_session;
+  const token = req.cookies.optical_hub_session;
   if (!token) {
     return res.json({ success: false, user: null });
   }
 
   jwt.verify(token, JWT_SECRET, (err, user) => {
     if (err) {
-      res.clearCookie('sharma_session');
+      res.clearCookie('optical_hub_session');
       return res.json({ success: false, user: null });
     }
     res.json({ success: true, user });
@@ -249,7 +249,7 @@ app.get('/api/frames', async (req, res) => {
     // 02.10: Server-side RBAC data redaction
     // Check if requester is authenticated as owner
     let isOwner = false;
-    const token = req.cookies.sharma_session;
+    const token = req.cookies.optical_hub_session;
     if (token) {
       try {
         const decoded = jwt.verify(token, JWT_SECRET);
@@ -411,7 +411,7 @@ app.get('/api/prescriptions/customer/:phone', async (req, res) => {
     
     // Check if staff/owner authenticated
     let authorized = false;
-    const token = req.cookies.sharma_session;
+    const token = req.cookies.optical_hub_session;
     if (token) {
       try {
         const decoded = jwt.verify(token, JWT_SECRET);
@@ -751,7 +751,7 @@ app.get('/admin', (req, res) => {
 // Initialize DB and launch server
 initDB().then(() => {
   app.listen(PORT, () => {
-    console.log(`[Sharma Optical] Secure Full-Stack Server active on port ${PORT}`);
+    console.log(`[The Optical Hub] Secure Full-Stack Server active on port ${PORT}`);
     console.log(`[Security] 20-Point Security Checklist Enforced: Parameterized SQLite, CSP, Rate-Limits, HttpOnly Cookies, MFA, RBAC.`);
   });
 }).catch(err => {

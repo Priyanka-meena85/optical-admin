@@ -194,13 +194,13 @@ async function seedInitialData() {
   if (userCount.count === 0) {
     // Salt & hash passwords with bcrypt
     const saltRounds = 12;
-    const ownerHash = bcrypt.hashSync('Sharma@Bhiwadi1998', saltRounds);
+    const ownerHash = bcrypt.hashSync('OpticalHub@Jaipur2026', saltRounds);
     const staffHash = bcrypt.hashSync('Staff@Optic2026', saltRounds);
 
     // Default Owner with MFA enabled (simulated secret)
     await run(
       'INSERT INTO users (username, password_hash, role, full_name, phone, mfa_secret, mfa_enabled) VALUES (?, ?, ?, ?, ?, ?, ?)',
-      ['owner', ownerHash, 'owner', 'Dr. Rajesh Sharma', '9876543210', 'MFA_OPTICAL_SECRET_KEY', 1]
+      ['owner', ownerHash, 'owner', 'Sunil Kumar (Store Owner)', '9876543210', 'MFA_OPTICAL_SECRET_KEY', 1]
     );
 
     // Default Counter Staff (Masked cost view)
@@ -216,7 +216,7 @@ async function seedInitialData() {
       ['SKU-1001', 'Imperial Wayfarer Bold', 'Ray-Lite', 'Gents', 'Wayfarer', 'Handcrafted Acetate', 850, 1899, 8, 'https://images.unsplash.com/photo-1591076482161-42ce6da69f67?auto=format&fit=crop&w=600&q=80', 'Italian Acetate'],
       ['SKU-1002', 'Vintage Round Wire', 'Titan Vista', 'Gents', 'Round', 'Feather-light Titanium', 1100, 2499, 2, 'https://images.unsplash.com/photo-1574258495973-f010dfbb5371?auto=format&fit=crop&w=600&q=80', 'Pure Titanium'],
       ['SKU-1003', 'Cat-Eye Elegance Gold', 'Vogue Star', 'Ladies', 'Cat-Eye', 'Rose Gold Alloy', 950, 2199, 2, 'https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=600&q=80', 'Bestseller'],
-      ['SKU-1004', 'Executive Half-Rim Aviator', 'Sharma Signature', 'Gents', 'Aviator', 'Monel Metal', 750, 1699, 7, 'https://images.unsplash.com/photo-1577803645773-f96470509666?auto=format&fit=crop&w=600&q=80', 'Formal Classic'],
+      ['SKU-1004', 'Executive Half-Rim Aviator', 'Hub Signature', 'Gents', 'Aviator', 'Monel Metal', 750, 1699, 7, 'https://images.unsplash.com/photo-1577803645773-f96470509666?auto=format&fit=crop&w=600&q=80', 'Formal Classic'],
       ['SKU-1005', 'Junior Flexi-Bend Blue', 'KidsSafe', 'Kids', 'Rectangle', 'Flexible Swiss TR90', 500, 1199, 2, 'https://images.unsplash.com/photo-1508296695146-257a814070b4?auto=format&fit=crop&w=600&q=80', 'Unbreakable TR90'],
       ['SKU-1006', 'Polarized Clubmaster', 'Fastrack Elite', 'Sunglasses', 'Clubmaster', 'Acetate & Metal', 1300, 2899, 6, 'https://images.unsplash.com/photo-1508296695146-257a814070b4?auto=format&fit=crop&w=600&q=80', 'UV400 Polarized'],
       ['SKU-1007', 'Minimalist Rimless Executive', 'Silhouette Style', 'Gents', 'Rimless', 'Beta Titanium', 1600, 3499, 1, 'https://images.unsplash.com/photo-1591076482161-42ce6da69f67?auto=format&fit=crop&w=600&q=80', 'Ultra Lightweight'],

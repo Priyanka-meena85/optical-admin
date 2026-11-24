@@ -22,7 +22,7 @@ function request(options, data = null) {
 }
 
 async function runTests() {
-  console.log('--- STARTING SHARMA OPTICAL FULL-STACK TEST SUITE ---');
+  console.log('--- STARTING THE OPTICAL HUB FULL-STACK TEST SUITE ---');
 
   // 1. Audit Check
   console.log('\n[TEST 1] Testing /api/security/audit...');
@@ -49,7 +49,7 @@ async function runTests() {
       'Content-Type': 'application/json',
       'X-Requested-With': 'XMLHttpRequest'
     }
-  }, { username: 'owner', password: 'Sharma@Bhiwadi1998' });
+  }, { username: 'owner', password: 'OpticalHub@Jaipur2026' });
 
   const ownerLoginData = JSON.parse(ownerLoginRes.body);
   console.log('Owner login response:', ownerLoginData.message);
@@ -174,7 +174,7 @@ async function runTests() {
   console.log('\n[TEST 8] Testing HTML page delivery...');
   const indexRes = await request({ host: 'localhost', port: 8080, path: '/', method: 'GET' });
   const adminRes = await request({ host: 'localhost', port: 8080, path: '/admin.html', method: 'GET' });
-  if (indexRes.statusCode !== 200 || !indexRes.body.includes('Sharma Optical')) {
+  if (indexRes.statusCode !== 200 || !indexRes.body.includes('The Optical Hub')) {
     throw new Error('index.html failed to serve correctly!');
   }
   if (adminRes.statusCode !== 200 || !adminRes.body.includes('modalMfaVerification')) {
