@@ -8,6 +8,9 @@
     "build": "node -e \"console.log('Build completed successfully for The Optical Hub')\"",
     "test": "node test_fullstack.js"
   },
+  "allowScripts": {
+    "sqlite3": true
+  },
   "dependencies": {
     "bcryptjs": "^3.0.3",
     "cookie-parser": "^1.4.7",
